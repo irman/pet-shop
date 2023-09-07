@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -38,6 +38,10 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'api' => [
+            'driver' => 'jwt',
             'provider' => 'users',
         ],
     ],
@@ -112,4 +116,17 @@ return [
 
     'password_timeout' => 10800,
 
+    'jwt' => [
+        'algorithm' => 'RS256',
+        'ttl' => 60 * 24, # In minutes
+
+        'jwk_path' => env('JWT_JWK_PATH', storage_path('jwt/jwk.json')),
+        'public_key_path' => env('JWT_PUBLIC_KEY_PATH', storage_path('jwt/public.pem')),
+        'private_key_path' => env('JWT_PRIVATE_KEY_PATH', storage_path('jwt/private.pem')),
+
+        # See AppServiceProvider
+        'jwk' => null,
+        'public_key' => null,
+        'private_key' => null,
+    ],
 ];

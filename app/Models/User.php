@@ -16,7 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
 
 /**
- * \App\Models\User
+ * App\Models\User
  *
  * @property int $id
  * @property string $uuid
@@ -33,11 +33,12 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $last_login_at
+ * @property-read string $full_name Get User's full name
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read Collection<int, PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- * @method static UserFactory factory($count = null, $state = [])
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
  * @method static Builder|User query()
@@ -56,7 +57,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User wherePhoneNumber($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUuid($value)
- * @mixin Eloquent
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
@@ -68,7 +69,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
     ];
@@ -92,4 +92,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * @comment Get User's full name
+     *
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }

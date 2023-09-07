@@ -26,6 +26,7 @@ class UserFactory extends Factory
             'password' => bcrypt('userpassword'),
             'address' => fake()->address(),
             'phone_number' => fake()->phoneNumber(),
+            'is_marketing' => fake()->boolean,
         ];
     }
 

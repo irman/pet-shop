@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
         $admin = new User();
         $admin->uuid = uuid_create();
         $admin->first_name = 'Admin';
-        $admin->last_name = 'One';
+        $admin->last_name = '@ Buckhill';
         $admin->is_admin = true;
         $admin->email = 'admin@buckhill.co.uk';
         $admin->email_verified_at = now();
@@ -24,6 +24,6 @@ class UserSeeder extends Seeder
         $admin->phone_number = '+60129891613';
         $admin->save();
 
-        User::factory()->count(10)->create();
+        User::factory()->count(50)->create();
     }
 }
