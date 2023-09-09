@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use App\Http\Resources\APIResource;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,5 +30,28 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request): APIResource
+    {
+        $response = new APIResource([], 0);
+        $response->setError('Failed Validation')->setErrors($e->errors())->setStatusCode(422);
+        return $response;
+    }
+
+    protected function convertExceptionToArray(Throwable $e): array|Response|APIResource
+    {
+        if ($e instanceof AccessDeniedHttpException) {
+            return [
+                'success' => 0,
+                'data' => [],
+                'error' => 'Unauthorized: Not enough privileges',
+                'errors' => [],
+                'trace' => [],
+            ];
+        }
+
+        return parent::convertExceptionToArray($e);
     }
 }

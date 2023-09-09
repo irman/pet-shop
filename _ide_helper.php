@@ -18074,10 +18074,105 @@
         class Str {
          
     }
+            /**
+     * 
+     *
+     * @template TKey of array-key
+     * @template-covariant TValue
+     * @implements \ArrayAccess<TKey, TValue>
+     * @implements \Illuminate\Support\Enumerable<TKey, TValue>
+     */ 
+        class Collection {
+                    /**
+         * 
+         *
+         * @see \Fouladgar\EloquentBuilder\ServiceProvider::registerMacros()
+         * @static 
+         */ 
+        public static function getFilters()
+        {
+                        return \Illuminate\Support\Collection::getFilters();
+        }
+         
+    }
      
 }
 
-        namespace Spatie\LaravelIgnition\Facades { 
+        namespace Fouladgar\EloquentBuilder { 
+            /**
+     * 
+     *
+     */ 
+        class Facade {
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function filters($filters = null)
+        {
+                        /** @var \Fouladgar\EloquentBuilder\EloquentBuilder $instance */
+                        return $instance->filters($filters);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function filter($filters)
+        {
+                        /** @var \Fouladgar\EloquentBuilder\EloquentBuilder $instance */
+                        return $instance->filter($filters);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function model($builder)
+        {
+                        /** @var \Fouladgar\EloquentBuilder\EloquentBuilder $instance */
+                        return $instance->model($builder);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function setFilterNamespace($namespace = '')
+        {
+                        /** @var \Fouladgar\EloquentBuilder\EloquentBuilder $instance */
+                        return $instance->setFilterNamespace($namespace);
+        }
+                    /**
+         * 
+         *
+         * @throws FilterException|Throwable
+         * @static 
+         */ 
+        public static function thenApply()
+        {
+                        /** @var \Fouladgar\EloquentBuilder\EloquentBuilder $instance */
+                        return $instance->thenApply();
+        }
+                    /**
+         * 
+         *
+         * @throws FilterException|Throwable
+         * @deprecated Please use the `thenApply` method instead of this.
+         * @static 
+         */ 
+        public static function to($query = null, $filters = null)
+        {
+                        /** @var \Fouladgar\EloquentBuilder\EloquentBuilder $instance */
+                        return $instance->to($query, $filters);
+        }
+         
+    }
+     
+}
+
+    namespace Spatie\LaravelIgnition\Facades { 
             /**
      * 
      *
@@ -22481,6 +22576,7 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
+            class EloquentBuilder extends \Fouladgar\EloquentBuilder\Facade {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      
 }
