@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\User;
 
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -15,12 +15,9 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (auth()->user()->is_admin ?? false) {
-            /** @var User $user */
-            $user = $this->route('user');
-            return !$user->is_admin;
-        }
-        return false;
+        /** @var User $user */
+        $user = auth()->user();
+        return !$user->is_admin;
     }
 
     protected function failedAuthorization()
@@ -36,7 +33,7 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         /** @var User $user */
-        $user = $this->route('user');
+        $user = auth()->user();
 
         return [
             'first_name' => 'required',

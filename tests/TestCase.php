@@ -19,4 +19,14 @@ abstract class TestCase extends BaseTestCase
         $token = $response->json('data.token');
         $this->withToken($token);
     }
+
+    protected function loginAsUser(): void
+    {
+        $response = $this->postJson(route('user.login'), [
+            'email' => 'user@buckhill.co.uk',
+            'password' => 'userpassword',
+        ]);
+        $token = $response->json('data.token');
+        $this->withToken($token);
+    }
 }

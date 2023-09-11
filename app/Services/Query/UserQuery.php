@@ -3,8 +3,6 @@
 namespace App\Services\Query;
 
 use App\Models\User;
-use App\Services\Query\Query;
-use Illuminate\Database\Eloquent\Builder;
 
 class UserQuery extends Query
 {

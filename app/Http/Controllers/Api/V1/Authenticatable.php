@@ -1,18 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Admin;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\APIResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+/**
+ * @mixin Controller
+ */
+trait Authenticatable
 {
     public function login(Request $request): APIResource
     {
         $credential = $request->only(['email', 'password']);
-        $credential['is_admin'] = 1;
+        $credential = array_merge($credential, $this->additionalCredential ?? []);
 
         if (Auth::attempt($credential)) {
             return new APIResource([

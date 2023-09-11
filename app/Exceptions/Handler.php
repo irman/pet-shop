@@ -42,11 +42,15 @@ class Handler extends ExceptionHandler
 
     protected function convertExceptionToArray(Throwable $e): array|Response|APIResource
     {
+        $message = $e->getMessage();
+        if ($message === 'This action is unauthorized.') {
+            $message = null;
+        }
         if ($e instanceof AccessDeniedHttpException) {
             return [
                 'success' => 0,
                 'data' => [],
-                'error' => 'Unauthorized: Not enough privileges',
+                'error' => $message ?? 'Unauthorized: Not enough privileges',
                 'errors' => [],
                 'trace' => [],
             ];

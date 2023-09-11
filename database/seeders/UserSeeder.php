@@ -12,6 +12,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        # Hardcoded admin
         $admin = new User();
         $admin->uuid = uuid_create();
         $admin->first_name = 'Admin';
@@ -20,6 +21,19 @@ class UserSeeder extends Seeder
         $admin->email = 'admin@buckhill.co.uk';
         $admin->email_verified_at = now();
         $admin->password = 'admin';
+        $admin->address = 'Kuala Lumpur, Malaysia';
+        $admin->phone_number = '+60129891613';
+        $admin->save();
+
+        # Hardcoded test user
+        $admin = new User();
+        $admin->uuid = uuid_create();
+        $admin->first_name = 'User';
+        $admin->last_name = '@ Buckhill';
+        $admin->is_admin = false;
+        $admin->email = 'user@buckhill.co.uk';
+        $admin->email_verified_at = now();
+        $admin->password = 'userpassword';
         $admin->address = 'Kuala Lumpur, Malaysia';
         $admin->phone_number = '+60129891613';
         $admin->save();

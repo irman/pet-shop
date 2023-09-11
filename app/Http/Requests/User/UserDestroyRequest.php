@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\User;
 
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -14,7 +14,7 @@ class UserDestroyRequest extends FormRequest
     public function authorize(): bool
     {
         /** @var User $user */
-        $user = $this->route('user');
+        $user = auth()->user();
         return !$user->is_admin;
     }
 

@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Database\Factories\UserFactory;
-use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -29,13 +29,15 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property string|null $avatar
  * @property string $address
  * @property string $phone_number
- * @property int $is_marketing
+ * @property bool $is_marketing
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $last_login_at
  * @property-read string $full_name Get User's full name
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read Collection<int, Order> $orders
+ * @property-read int|null $orders_count
  * @property-read Collection<int, PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @method static UserFactory factory($count = null, $state = [])
@@ -108,4 +110,11 @@ class User extends Authenticatable
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    #region Relationships
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+    #endregion
 }
