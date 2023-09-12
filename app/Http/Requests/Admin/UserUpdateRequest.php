@@ -23,11 +23,6 @@ class UserUpdateRequest extends FormRequest
         return false;
     }
 
-    protected function failedAuthorization()
-    {
-        throw new AuthorizationException('Admin cannot be edited');
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -44,7 +39,7 @@ class UserUpdateRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignoreModel($user)
+                Rule::unique('users', 'email')->ignoreModel($user),
             ],
             'password' => 'required|confirmed|min:8',
             'avatar' => '',
@@ -52,5 +47,10 @@ class UserUpdateRequest extends FormRequest
             'phone_number' => 'required',
             'marketing' => 'nullable|boolean',
         ];
+    }
+
+    protected function failedAuthorization()
+    {
+        throw new AuthorizationException('Admin cannot be edited');
     }
 }

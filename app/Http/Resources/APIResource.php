@@ -31,10 +31,10 @@ class APIResource extends JsonResource
             'error' => $this->error,
             'errors' => $this->errors,
         ];
-        if (!empty($this->error)) {
-            $with['trace'] = [];
-        } else {
+        if (is_null($this->error)) {
             $with['extra'] = [];
+        } else {
+            $with['trace'] = [];
         }
         return $with;
     }

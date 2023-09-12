@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\User;
 
-use App\Models\User;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,9 +22,6 @@ class UserResetPasswordRequest extends FormRequest
      */
     public function rules(): array
     {
-        /** @var User $user */
-        $user = auth()->user();
-
         return [
             'token' => 'required',
             'email' => 'required|email',

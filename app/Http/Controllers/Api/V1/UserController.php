@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        return (new UserResource($user));
+        return new UserResource($user);
     }
 
     public function update(UserUpdateRequest $request): UserResource
@@ -38,7 +38,7 @@ class UserController extends Controller
         $user->fill($request->validated());
         $user->save();
 
-        return (new UserResource($user));
+        return new UserResource($user);
     }
 
     public function destroy(UserDestroyRequest $request): APIResource
@@ -47,7 +47,7 @@ class UserController extends Controller
         $user = auth()->user();
         $user->delete();
 
-        return (new APIResource([]));
+        return new APIResource([]);
     }
 
     public function store(UserStoreRequest $request): UserResource
@@ -95,7 +95,7 @@ class UserController extends Controller
         if ($status === Password::PASSWORD_RESET) {
             return new APIResource([
                 'data' => [
-                    'message' => 'Password has been successfully updated'
+                    'message' => 'Password has been successfully updated',
                 ],
             ]);
         }
@@ -110,6 +110,6 @@ class UserController extends Controller
     public function orders(Request $request): APIResource
     {
         $data = (new OrderQuery(auth()->user()))->listFromRequest($request);
-        return (new APIResource($data));
+        return new APIResource($data);
     }
 }

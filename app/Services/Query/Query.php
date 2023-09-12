@@ -29,11 +29,11 @@ class Query
      * @throws Throwable
      */
     public function list(
-        array       $filters,
-        int         $page,
-        int         $limit,
+        array $filters,
+        int   $page,
+        int   $limit,
         string|null $sortColumn = null,
-        bool        $sortDesc = true,
+        bool  $sortDesc = true,
     ): LengthAwarePaginator
     {
         $limit = min($limit, 50);

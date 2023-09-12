@@ -16,7 +16,7 @@ class JwtGuard implements Guard
     use GuardHelpers;
 
     protected Request $request;
-    protected ?string $token;
+    protected ?string $token = null;
     protected ?Authenticatable $lastAttempted;
     protected ?JwtToken $jwtToken = null;
 
@@ -45,18 +45,22 @@ class JwtGuard implements Guard
         if (is_null($this->jwtToken)) {
             $token = $this->getToken();
 
-            if ($token && $payload = Jwt::decode($token)) {
-                if ($user = User::whereUuid($payload['user_uuid'])->first()) {
-                    $jwtToken = JwtToken::query()
-                        ->where('user_id', $user->id)
-                        ->where('expires_at', '>', now())
-                        ->where('unique_id', $token)
-                        ->first();
+            if ($token) {
+                $payload = Jwt::decode($token);
+                if ($payload) {
+                    $user = User::whereUuid($payload['user_uuid'])->first();
+                    if ($user) {
+                        $jwtToken = JwtToken::query()
+                            ->where('user_id', $user->id)
+                            ->where('expires_at', '>', now())
+                            ->where('unique_id', $token)
+                            ->first();
 
-                    if ($jwtToken) {
-                        $jwtToken->last_used_at = now();
-                        $jwtToken->save();
-                        $this->jwtToken = $jwtToken;
+                        if ($jwtToken) {
+                            $jwtToken->last_used_at = now();
+                            $jwtToken->save();
+                            $this->jwtToken = $jwtToken;
+                        }
                     }
                 }
             }
@@ -96,7 +100,8 @@ class JwtGuard implements Guard
 
     public function logout(): void
     {
-        if ($jwtToken = $this->jwtToken()) {
+        $jwtToken = $this->jwtToken();
+        if ($jwtToken) {
             $jwtToken->delete();
             $this->jwtToken = null;
             $this->user = null;
@@ -105,7 +110,7 @@ class JwtGuard implements Guard
 
     public function getToken(): ?string
     {
-        if (empty($this->token)) {
+        if (is_null($this->token)) {
             $this->token = $this->request->bearerToken();
         }
 

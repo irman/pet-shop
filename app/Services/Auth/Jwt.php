@@ -10,7 +10,7 @@ use Firebase\JWT\Key;
 
 class Jwt
 {
-    static function login(User $user): JwtToken
+    public static function login(User $user): JwtToken
     {
         $expiresAt = now()->addMinutes(config('auth.jwt.ttl'))->getTimestamp();
         $token = Jwt::encode([
@@ -28,16 +28,17 @@ class Jwt
 
         return $jwtToken;
     }
-    static function encode($payload = []): string
+
+    public static function encode($payload = []): string
     {
         $privateKey = config('auth.jwt.private_key');
         return FirebaseJWT::encode($payload, $privateKey, config('auth.jwt.algorithm'));
     }
 
-    static function decode($token): ?array
+    public static function decode($token): ?array
     {
         try {
-            return (array)FirebaseJWT::decode($token, new Key(config('auth.jwt.public_key'), config('auth.jwt.algorithm')));
+            return (array) FirebaseJWT::decode($token, new Key(config('auth.jwt.public_key'), config('auth.jwt.algorithm')));
         } catch (Exception $e) {
             return null;
         }

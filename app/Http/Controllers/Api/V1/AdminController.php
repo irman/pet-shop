@@ -28,7 +28,7 @@ class AdminController extends Controller
     public function listing(Request $request): UserResourceCollection
     {
         $data = (new UserQuery())->listFromRequest($request);
-        return (new UserResourceCollection($data));
+        return new UserResourceCollection($data);
     }
 
     public function store(AdminStoreRequest $request): UserResource
@@ -54,13 +54,13 @@ class AdminController extends Controller
         }
         $user->save();
 
-        return (new UserResource($user));
+        return new UserResource($user);
     }
 
     public function destroy(UserDestroyRequest $request, User $user): APIResource
     {
         $user->delete();
 
-        return (new APIResource([]));
+        return new APIResource([]);
     }
 }

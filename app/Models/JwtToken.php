@@ -23,7 +23,9 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $expires_at
  * @property Carbon|null $last_used_at
  * @property Carbon|null $refreshed_at
+ *
  * @property-read User $user
+ *
  * @method static Builder|JwtToken newModelQuery()
  * @method static Builder|JwtToken newQuery()
  * @method static Builder|JwtToken query()
@@ -38,6 +40,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|JwtToken whereUniqueId($value)
  * @method static Builder|JwtToken whereUpdatedAt($value)
  * @method static Builder|JwtToken whereUserId($value)
+ *
  * @mixin Eloquent
  */
 class JwtToken extends Model

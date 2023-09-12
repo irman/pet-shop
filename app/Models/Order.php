@@ -24,7 +24,9 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string $shipped_at
+ *
  * @property-read User $user
+ *
  * @method static Builder|Order newModelQuery()
  * @method static Builder|Order newQuery()
  * @method static Builder|Order query()
@@ -40,6 +42,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Order whereUpdatedAt($value)
  * @method static Builder|Order whereUserId($value)
  * @method static Builder|Order whereUuid($value)
+ *
  * @mixin Eloquent
  */
 class Order extends Model

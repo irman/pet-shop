@@ -7,14 +7,6 @@ use App\Events\UserLoggedIn;
 class UpdateUserLastLogin
 {
     /**
-     * Create the event listener.
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Handle the event.
      */
     public function handle(UserLoggedIn $event): void
