@@ -18098,7 +18098,29 @@
      
 }
 
-        namespace Fouladgar\EloquentBuilder { 
+        namespace L5Swagger { 
+            /**
+     * 
+     *
+     */ 
+        class L5SwaggerFacade {
+                    /**
+         * 
+         *
+         * @throws L5SwaggerException
+         * @static 
+         */ 
+        public static function generateDocs()
+        {
+                        /** @var \L5Swagger\Generator $instance */
+                        return $instance->generateDocs();
+        }
+         
+    }
+     
+}
+
+    namespace Fouladgar\EloquentBuilder { 
             /**
      * 
      *
@@ -22576,6 +22598,7 @@ namespace  {
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
+            class L5Swagger extends \L5Swagger\L5SwaggerFacade {}
             class EloquentBuilder extends \Fouladgar\EloquentBuilder\Facade {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      
