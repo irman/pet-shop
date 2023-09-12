@@ -12,13 +12,11 @@ class AdminStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->is_admin ?? false;
+        return (bool) (auth()->user()->is_admin ?? false);
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array|string>
+     * @return string[]
      */
     public function rules(): array
     {

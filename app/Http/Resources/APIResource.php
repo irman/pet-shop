@@ -10,10 +10,13 @@ class APIResource extends JsonResource
 {
     protected int $success = 1;
     protected ?string $error = null;
+    /**
+     * @var string[]
+     */
     protected array $errors = [];
     protected int $statusCode = 200;
 
-    public function __construct($resource, $success = 1)
+    public function __construct($resource, int $success = 1)
     {
         parent::__construct($resource);
         $this->success = $success;
@@ -24,6 +27,10 @@ class APIResource extends JsonResource
         $response->setStatusCode($this->statusCode);
     }
 
+    /**
+     * @param Request $request
+     * @return array<string, mixed>
+     */
     public function with(Request $request): array
     {
         $with = [
@@ -58,15 +65,19 @@ class APIResource extends JsonResource
      * Customize the pagination information for the resource.
      *
      * @param Request $request
-     * @param array $paginated
-     * @param array $default
-     * @return array
+     * @param array<string, mixed> $paginated
+     * @param array<string, mixed> $default
+     * @return array<string, mixed>
      */
     public function paginationInformation(Request $request, array $paginated, array $default): array
     {
         return $paginated;
     }
 
+    /**
+     * @param string[] $errors
+     * @return $this
+     */
     public function setErrors(array $errors): APIResource
     {
         $this->errors = $errors;

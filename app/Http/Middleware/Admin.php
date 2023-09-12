@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Auth;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
@@ -19,6 +20,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
+        /** @var User|null $user */
         $user = Auth::user();
 
         if (is_null($user)) {

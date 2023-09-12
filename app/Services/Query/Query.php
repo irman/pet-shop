@@ -12,6 +12,9 @@ use Throwable;
 class Query
 {
     protected Builder $baseQuery;
+    /**
+     * @var string[]
+     */
     protected array $allowedSortColumn = [];
 
     public function __construct(Builder $baseQuery)
@@ -25,6 +28,12 @@ class Query
     }
 
     /**
+     * @param array<string, int|string|null> $filters
+     * @param int $page
+     * @param int $limit
+     * @param string|null $sortColumn
+     * @param bool $sortDesc
+     * @return LengthAwarePaginator
      * @throws FilterException
      * @throws Throwable
      */

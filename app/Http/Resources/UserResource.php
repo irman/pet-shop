@@ -12,6 +12,10 @@ class UserResource extends APIResource
 {
     protected bool $trimInfo = false;
 
+    /**
+     * @param Request $request
+     * @return array<int|string, mixed>
+     */
     public function toArray(Request $request): array
     {
         return [

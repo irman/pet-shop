@@ -54,17 +54,17 @@ class UserController extends Controller
     {
         $user = new User($request->validated());
         $user->uuid = Str::orderedUuid()->toString();
-        $user->is_admin = false;
+        $user->is_admin = 0;
         $user->save();
 
         # Log this user in and get token
         $jwtToken = Jwt::login($user);
-        $user->token = $jwtToken->unique_id;
+        $user->setAttribute('token', $jwtToken->unique_id);
 
         return (new UserResource($user))->setTrimInfo(true);
     }
 
-    public function forgotPassword(UserForgotPasswordRequest $request)
+    public function forgotPassword(UserForgotPasswordRequest $request): APIResource
     {
         $user = User::whereEmail($request->get('email'))->first();
 

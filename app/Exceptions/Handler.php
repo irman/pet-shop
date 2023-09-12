@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Http\Resources\APIResource;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -31,13 +32,17 @@ class Handler extends ExceptionHandler
         });
     }
 
-    protected function convertValidationExceptionToResponse(ValidationException $e, $request): APIResource
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request): JsonResponse
     {
-        $response = new APIResource([], 0);
-        $response->setError('Failed Validation')->setErrors($e->errors())->setStatusCode(422);
-        return $response;
+        $resource = new APIResource([], 0);
+        $resource->setError('Failed Validation')->setErrors($e->errors())->setStatusCode(422);
+        return $resource->toResponse($request);
     }
 
+    /**
+     * @param Throwable $e
+     * @return array<string, mixed>|Response|APIResource
+     */
     protected function convertExceptionToArray(Throwable $e): array|Response|APIResource
     {
         $message = $e->getMessage();

@@ -69,14 +69,25 @@ class JwtGuard implements Guard
         return $this->jwtToken;
     }
 
+    /**
+     * @param array<string, string> $credentials
+     * @return bool
+     */
     public function validate(array $credentials = []): bool
     {
-        return (bool)$this->provider->retrieveByCredentials($credentials);
+        return (bool) $this->provider->retrieveByCredentials($credentials);
     }
 
+    /**
+     * @param array<string, string> $credentials
+     * @param bool $login
+     * @return bool|string
+     */
     public function attempt(array $credentials = [], bool $login = true): bool|string
     {
-        $this->lastAttempted = $user = $this->provider->retrieveByCredentials($credentials);
+        /** @var User|null $user */
+        $user = $this->provider->retrieveByCredentials($credentials);
+        $this->lastAttempted = $user;
 
         if ($user && $this->provider->validateCredentials($user, $credentials)) {
             if ($login) {
@@ -88,7 +99,7 @@ class JwtGuard implements Guard
         return false;
     }
 
-    public function login(Authenticatable|User $user): void
+    public function login(User $user): void
     {
         $jwtToken = Jwt::login($user);
 

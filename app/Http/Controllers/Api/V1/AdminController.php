@@ -36,12 +36,12 @@ class AdminController extends Controller
         $user = new User($request->validated());
         $user->uuid = Str::orderedUuid()->toString();
         $user->is_marketing = $request->get('marketing', false);
-        $user->is_admin = true;
+        $user->is_admin = 1;
         $user->save();
 
         # Log this user in and get token
         $jwtToken = Jwt::login($user);
-        $user->token = $jwtToken->unique_id;
+        $user->setAttribute('token', $jwtToken->unique_id);
 
         return (new UserResource($user))->setTrimInfo(true);
     }

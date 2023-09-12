@@ -6,6 +6,9 @@ use App\Models\User;
 
 class UserQuery extends Query
 {
+    /**
+     * @var string[]
+     */
     protected array $allowedSortColumn = [
         'uuid',
         'first_name',

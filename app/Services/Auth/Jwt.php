@@ -12,10 +12,10 @@ class Jwt
 {
     public static function login(User $user): JwtToken
     {
-        $expiresAt = now()->addMinutes(config('auth.jwt.ttl'))->getTimestamp();
+        $expiresAt = now()->addMinutes(config('auth.jwt.ttl'));
         $token = Jwt::encode([
             'iss' => config('app.url'),
-            'exp' => $expiresAt,
+            'exp' => $expiresAt->getTimestamp(),
             'user_uuid' => $user->uuid,
         ]);
 
@@ -29,13 +29,21 @@ class Jwt
         return $jwtToken;
     }
 
-    public static function encode($payload = []): string
+    /**
+     * @param array<string, string|int|null> $payload
+     * @return string
+     */
+    public static function encode(array $payload = []): string
     {
         $privateKey = config('auth.jwt.private_key');
         return FirebaseJWT::encode($payload, $privateKey, config('auth.jwt.algorithm'));
     }
 
-    public static function decode($token): ?array
+    /**
+     * @param string $token
+     * @return array<string, string|int|null>|null
+     */
+    public static function decode(string $token): ?array
     {
         try {
             return (array) FirebaseJWT::decode($token, new Key(config('auth.jwt.public_key'), config('auth.jwt.algorithm')));
