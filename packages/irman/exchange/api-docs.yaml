@@ -1,0 +1,32 @@
+openapi: 3.0.0
+info:
+  title: Exchange
+  description: API routes
+  contact:
+    email: irman@outlook.my
+  version: 1.0.0
+paths:
+  "/api/v1/exchange/convert":
+    get:
+      tags:
+        - Exchange
+      summary: Convert provided amount from default currency to destination currency
+      description: Convert provided amount from default currency to destination currency
+      operationId: exchange/convert
+      parameters:
+        - name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Ok
+tags:
+  - name: Exchange
+    description: Exchange API endpoint

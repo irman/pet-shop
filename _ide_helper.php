@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 10.21.0.
+ * Generated for Laravel 10.23.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -2022,6 +2022,8 @@
                     /**
          * 
          *
+         * @param array<string, string> $credentials
+         * @return bool 
          * @static 
          */ 
         public static function validate($credentials = [])
@@ -2032,6 +2034,9 @@
                     /**
          * 
          *
+         * @param array<string, string> $credentials
+         * @param bool $login
+         * @return bool|string 
          * @static 
          */ 
         public static function attempt($credentials = [], $login = true)
@@ -13091,7 +13096,7 @@
                     /**
          * Create a new redirect response to a controller action.
          *
-         * @param string $action
+         * @param array|string $action
          * @param mixed $parameters
          * @param int $status
          * @param array $headers
