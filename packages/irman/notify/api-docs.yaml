@@ -1,0 +1,7 @@
+openapi: 3.1
+info:
+  title: Notify
+  description: No API endpoint on this package
+  contact:
+    email: irman@outlook.my
+  version: 1.0.0

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "46e30c99565459c45fe5394801534f3b",
+    "content-hash": "3cb0ef30849499b79be6f2ea136a3f3e",
     "packages": [
         {
             "name": "brick/math",
@@ -1194,7 +1194,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/irman/exchange",
-                "reference": "45d9e663f2aa716573f2f52ea750768d00654103"
+                "reference": "22b141b9b32cf11053fbcb1e2a10cc50cbdd4782"
             },
             "require": {
                 "ext-curl": "*",
@@ -1221,8 +1221,30 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Irman\\Exchange\\Tests": "tests/"
+                    "Irman\\Exchange\\Tests\\": "tests/",
+                    "Workbench\\App\\": "workbench/app/",
+                    "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+                    "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
                 }
+            },
+            "scripts": {
+                "post-autoload-dump": [
+                    "@clear",
+                    "@prepare"
+                ],
+                "clear": [
+                    "@php vendor/bin/testbench package:purge-skeleton --ansi"
+                ],
+                "prepare": [
+                    "@php vendor/bin/testbench package:discover --ansi"
+                ],
+                "build": [
+                    "@php vendor/bin/testbench workbench:build --ansi"
+                ],
+                "serve": [
+                    "@build",
+                    "@php vendor/bin/testbench serve"
+                ]
             },
             "authors": [
                 {
@@ -1237,17 +1259,87 @@
             }
         },
         {
+            "name": "irman/notify",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "./packages/irman/notify",
+                "reference": "62188293c1a1501c702e7af6bfa252acbc20175e"
+            },
+            "require": {
+                "ext-curl": "*",
+                "laravel/framework": "^10.10",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "*",
+                "phpunit/phpunit": "^10.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Irman\\Notify\\Providers\\NotifyServiceProvider",
+                        "Irman\\Notify\\Providers\\EventServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Irman\\Notify\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Irman\\Notify\\Tests\\": "tests/",
+                    "Workbench\\App\\": "workbench/app/",
+                    "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+                    "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+                }
+            },
+            "scripts": {
+                "post-autoload-dump": [
+                    "@clear",
+                    "@prepare"
+                ],
+                "clear": [
+                    "@php vendor/bin/testbench package:purge-skeleton --ansi"
+                ],
+                "prepare": [
+                    "@php vendor/bin/testbench package:discover --ansi"
+                ],
+                "build": [
+                    "@php vendor/bin/testbench workbench:build --ansi"
+                ],
+                "serve": [
+                    "@build",
+                    "@php vendor/bin/testbench serve"
+                ]
+            },
+            "authors": [
+                {
+                    "name": "Irman Ahmad",
+                    "email": "irman@outlook.my"
+                }
+            ],
+            "description": "Notifier package",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "laravel/framework",
-            "version": "v10.23.0",
+            "version": "v10.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "7d6a79ce8ff52a4d0d385ac290dcc048aa514ce7"
+                "reference": "dbfd495557678759153e8d71cc2f6027686ca51e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/7d6a79ce8ff52a4d0d385ac290dcc048aa514ce7",
-                "reference": "7d6a79ce8ff52a4d0d385ac290dcc048aa514ce7",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/dbfd495557678759153e8d71cc2f6027686ca51e",
+                "reference": "dbfd495557678759153e8d71cc2f6027686ca51e",
                 "shasum": ""
             },
             "require": {
@@ -1347,7 +1439,7 @@
                 "league/flysystem-read-only": "^3.3",
                 "league/flysystem-sftp-v3": "^3.0",
                 "mockery/mockery": "^1.5.1",
-                "orchestra/testbench-core": "^8.4",
+                "orchestra/testbench-core": "^8.10",
                 "pda/pheanstalk": "^4.0",
                 "phpstan/phpstan": "^1.4.7",
                 "phpunit/phpunit": "^10.0.7",
@@ -1434,7 +1526,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-09-12T15:55:31+00:00"
+            "time": "2023-09-13T14:51:46+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -3477,16 +3569,16 @@
         },
         {
             "name": "swagger-api/swagger-ui",
-            "version": "v5.6.2",
+            "version": "v5.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "ea6e3985871cdd2e949d8b890f4681f6920dda0f"
+                "reference": "efe613322dc3f5ba0f73fe1e4d7d1b48fdec23f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/ea6e3985871cdd2e949d8b890f4681f6920dda0f",
-                "reference": "ea6e3985871cdd2e949d8b890f4681f6920dda0f",
+                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/efe613322dc3f5ba0f73fe1e4d7d1b48fdec23f4",
+                "reference": "efe613322dc3f5ba0f73fe1e4d7d1b48fdec23f4",
                 "shasum": ""
             },
             "type": "library",
@@ -3532,9 +3624,9 @@
             ],
             "support": {
                 "issues": "https://github.com/swagger-api/swagger-ui/issues",
-                "source": "https://github.com/swagger-api/swagger-ui/tree/v5.6.2"
+                "source": "https://github.com/swagger-api/swagger-ui/tree/v5.7.0"
             },
-            "time": "2023-09-06T05:53:09+00:00"
+            "time": "2023-09-13T13:52:50+00:00"
         },
         {
             "name": "symfony/console",
@@ -6130,16 +6222,16 @@
         },
         {
             "name": "zircote/swagger-php",
-            "version": "4.7.13",
+            "version": "4.7.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zircote/swagger-php.git",
-                "reference": "e1062da5b47d3a97ee9910301f902b0f5b408340"
+                "reference": "e53c0c7a6e250c435cc13ab50792247a8eb07da3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/e1062da5b47d3a97ee9910301f902b0f5b408340",
-                "reference": "e1062da5b47d3a97ee9910301f902b0f5b408340",
+                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/e53c0c7a6e250c435cc13ab50792247a8eb07da3",
+                "reference": "e53c0c7a6e250c435cc13ab50792247a8eb07da3",
                 "shasum": ""
             },
             "require": {
@@ -6202,9 +6294,9 @@
             ],
             "support": {
                 "issues": "https://github.com/zircote/swagger-php/issues",
-                "source": "https://github.com/zircote/swagger-php/tree/4.7.13"
+                "source": "https://github.com/zircote/swagger-php/tree/4.7.14"
             },
-            "time": "2023-08-30T23:32:39+00:00"
+            "time": "2023-09-12T00:18:13+00:00"
         }
     ],
     "packages-dev": [
@@ -8554,16 +8646,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.33",
+            "version": "1.10.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "03b1cf9f814ba0863c4e9affea49a4d1ed9a2ed1"
+                "reference": "7f806b6f1403e6914c778140e2ba07c293cb4901"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/03b1cf9f814ba0863c4e9affea49a4d1ed9a2ed1",
-                "reference": "03b1cf9f814ba0863c4e9affea49a4d1ed9a2ed1",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/7f806b6f1403e6914c778140e2ba07c293cb4901",
+                "reference": "7f806b6f1403e6914c778140e2ba07c293cb4901",
                 "shasum": ""
             },
             "require": {
@@ -8612,7 +8704,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-04T12:20:53+00:00"
+            "time": "2023-09-13T09:49:47+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -11121,7 +11213,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "irman/exchange": 20
+        "irman/exchange": 20,
+        "irman/notify": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
