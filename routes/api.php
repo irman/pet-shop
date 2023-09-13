@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\MainController;
 use App\Http\Controllers\Api\V1\UserController;
@@ -61,4 +62,10 @@ Route::prefix('main')->as('main.')->controller(MainController::class)->group(fun
     Route::get('promotions', 'promotions')->name('promotions');
     Route::get('blog', 'posts')->name('posts');
     Route::get('blog/{post}', 'postIndex')->name('post.index');
+});
+
+Route::prefix('order')->as('order.')->controller(OrderController::class)->group(function() {
+    Route::middleware(['auth:api', 'admin'])->group(function () {
+        Route::put('{order}', 'update')->name('update');
+    });
 });

@@ -3,11 +3,13 @@
 namespace Tests\Unit;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Str;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
+    use DatabaseTransactions;
     public function test_user_listing(): void
     {
         $this->loginAsAdmin();

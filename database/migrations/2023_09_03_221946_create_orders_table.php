@@ -14,18 +14,18 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('order_status_id');
-            $table->foreignId('payment_id');
+            $table->string('order_status_uuid');
+            $table->foreignId('payment_id')->nullable();
             $table->string('uuid');
             $table->json('products');
             $table->json('address');
             $table->float('delivery_fee')->nullable();
             $table->float('amount');
             $table->timestamps();
-            $table->timestamp('shipped_at');
+            $table->timestamp('shipped_at')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('order_status_id')->references('id')->on('order_statuses');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('order_status_uuid')->references('uuid')->on('order_statuses');
             $table->foreign('payment_id')->references('id')->on('payments');
         });
     }

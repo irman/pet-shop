@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\OrderFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,11 +15,11 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property int $user_id
- * @property int $order_status_id
+ * @property int $order_status_uuid
  * @property int $payment_id
  * @property string $uuid
- * @property mixed $products
- * @property mixed $address
+ * @property array $products
+ * @property array $address
  * @property float|null $delivery_fee
  * @property float $amount
  * @property Carbon|null $created_at
@@ -27,6 +28,7 @@ use Illuminate\Support\Carbon;
  *
  * @property-read User $user
  *
+ * @method static OrderFactory factory($count = null, $state = [])
  * @method static Builder|Order newModelQuery()
  * @method static Builder|Order newQuery()
  * @method static Builder|Order query()
@@ -48,6 +50,18 @@ use Illuminate\Support\Carbon;
 class Order extends Model
 {
     use HasFactory;
+
+    public const DEFAULT_STATUS_UUID = '2be6f04b-29f6-33af-90c2-18c3f39c9310';
+
+    protected $casts = [
+        'products' => 'json',
+        'address' => 'json',
+    ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
 
     public function user(): BelongsTo
     {
