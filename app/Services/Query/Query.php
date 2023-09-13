@@ -39,10 +39,10 @@ class Query
      */
     public function list(
         array $filters,
-        int   $page,
-        int   $limit,
+        int $page,
+        int $limit,
         string|null $sortColumn = null,
-        bool  $sortDesc = true,
+        bool $sortDesc = true,
     ): LengthAwarePaginator
     {
         $limit = min($limit, 50);
@@ -72,8 +72,8 @@ class Query
     public function listFromRequest(Request $request): LengthAwarePaginator
     {
         $filters = $request->except(['page', 'limit', 'sortBy', 'desc']);
-        $page = (int)$request->get('page', 1);
-        $limit = (int)$request->get('limit', 10);
+        $page = (int) $request->get('page', 1);
+        $limit = (int) $request->get('limit', 10);
         $sortBy = $request->get('sortBy');
         $desc = $request->boolean('desc');
 

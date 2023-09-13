@@ -8,7 +8,7 @@ use App\Http\Requests\Admin\UserDestroyRequest;
 use App\Http\Requests\Admin\UserUpdateRequest;
 use App\Http\Resources\APIResource;
 use App\Http\Resources\UserResource;
-use App\Http\Resources\UserResourceCollection;
+use App\Http\Resources\UserCollection;
 use App\Models\User;
 use App\Services\Auth\Jwt;
 use App\Services\Query\UserQuery;
@@ -25,10 +25,10 @@ class AdminController extends Controller
      * @throws FilterException
      * @throws Throwable
      */
-    public function listing(Request $request): UserResourceCollection
+    public function listing(Request $request): UserCollection
     {
         $data = (new UserQuery())->listFromRequest($request);
-        return new UserResourceCollection($data);
+        return new UserCollection($data);
     }
 
     public function store(AdminStoreRequest $request): UserResource

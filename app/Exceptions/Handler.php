@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use App\Http\Resources\APIResource;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
@@ -45,15 +46,23 @@ class Handler extends ExceptionHandler
      */
     protected function convertExceptionToArray(Throwable $e): array|Response|APIResource
     {
-        $message = $e->getMessage();
-        if ($message === 'This action is unauthorized.') {
-            $message = null;
-        }
+        $error = null;
+        $previous = $e->getPrevious();
         if ($e instanceof AccessDeniedHttpException) {
+            $message = $e->getMessage();
+            if ($message === 'This action is unauthorized.') {
+                $message = null;
+            }
+            $error = $message ?? 'Unauthorized: Not enough privileges';
+        } elseif ($previous instanceof ModelNotFoundException) {
+            $error = class_basename($previous->getModel()) . ' not found';
+        }
+
+        if ($error){
             return [
                 'success' => 0,
                 'data' => [],
-                'error' => $message ?? 'Unauthorized: Not enough privileges',
+                'error' => $error,
                 'errors' => [],
                 'trace' => [],
             ];

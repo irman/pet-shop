@@ -13,6 +13,8 @@ tags:
     description: Admin API endpoint
   - name: User
     description: User API endpoint
+  - name: Main
+    description: Main page API endpoint
 paths:
   /api/v1/admin/login:
     post:
@@ -564,6 +566,95 @@ paths:
         '500':
           description: Internal server error
       security: [ ]
+  /api/v1/main/promotions:
+    get:
+      tags:
+        - Main
+      summary: List all promotions
+      operationId: main-promotions
+      parameters:
+        - name: page
+          required: false
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          required: false
+          in: query
+          schema:
+            type: integer
+        - name: sortBy
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: desc
+          required: false
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal server error
+  /api/v1/main/blog:
+    get:
+      tags:
+        - Main
+      summary: List all blog posts
+      operationId: main-blog
+      parameters:
+        - name: page
+          required: false
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          required: false
+          in: query
+          schema:
+            type: integer
+        - name: sortBy
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: desc
+          required: false
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal server error
+  /api/v1/main/blog/{uuid}:
+    get:
+      tags:
+        - Main
+      summary: View blog post
+      operationId: main-blog-index
+      parameters:
+        - name: uuid
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Blog post not found
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal server error
 components:
   securitySchemes:
     bearerAuth:

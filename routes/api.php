@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\MainController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\AdminController;
 
@@ -38,7 +39,6 @@ Route::prefix('admin')->as('admin.')->group(
 );
 
 Route::prefix('user')->as('user.')->group(function () {
-
     Route::controller(UserController::class)->group(function () {
         Route::post('login', 'login')->name('login');
         Route::post('create', 'store')->name('store');
@@ -47,7 +47,6 @@ Route::prefix('user')->as('user.')->group(function () {
     });
 
     Route::middleware(['auth:api'])->group(function () {
-
         Route::controller(UserController::class)->group(function () {
             Route::get('logout', 'logout')->name('logout');
             Route::get('', 'index')->name('index');
@@ -56,5 +55,10 @@ Route::prefix('user')->as('user.')->group(function () {
             Route::get('orders', 'orders')->name('orders');
         });
     });
+});
 
+Route::prefix('main')->as('main.')->controller(MainController::class)->group(function() {
+    Route::get('promotions', 'promotions')->name('promotions');
+    Route::get('blog', 'posts')->name('posts');
+    Route::get('blog/{post}', 'postIndex')->name('post.index');
 });

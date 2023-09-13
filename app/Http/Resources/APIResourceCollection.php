@@ -17,6 +17,6 @@ class APIResourceCollection extends ResourceCollection
      */
     public function paginationInformation(Request $request, array $paginated, array $default): array
     {
-        return $paginated;
+        return collect($paginated)->except(['data'])->toArray();
     }
 }
