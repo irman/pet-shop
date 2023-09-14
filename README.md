@@ -25,8 +25,28 @@ Use the `composer install` command to install the required PHP dependencies.
 
 - Use the `php artisan test` command to run all the tests and confirm that the application is working as expected.
 
-### 5. Swagger Documentation
+## Swagger Documentation
 
 The API documentation for the application is available in the `api-docs.yaml` file in the public directory.
 
 To view the Swagger documentation in a browser, visit: `{L5_SWAGGER_CONST_HOST}/api/documentation`.
+
+## PHP Insights
+
+![Insights Score](./.readme/insights.png)
+
+Run `composer insights` to verify the score.
+
+## Larastan
+
+![Laratan Score](./.readme/larastan.png)
+
+Run `composer phpstan` to verify.
+
+## Level 3 Challenge: Currency Exchange
+
+Refer package [README.md](./packages/irman/exchange/README.md)
+
+## Level 4 Challenge: Notification Service
+
+Refer package [README.md](./packages/irman/notify/README.md)

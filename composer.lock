@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cb0ef30849499b79be6f2ea136a3f3e",
+    "content-hash": "9d24da70730c547e4be0958de2d54d98",
     "packages": [
         {
             "name": "brick/math",
@@ -1194,13 +1194,13 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/irman/exchange",
-                "reference": "22b141b9b32cf11053fbcb1e2a10cc50cbdd4782"
+                "reference": "4f4cb95cd54d17b1355011917d89a5ac9acf434c"
             },
             "require": {
                 "ext-curl": "*",
                 "ext-libxml": "*",
                 "laravel/framework": "^10.10",
-                "php": "^8.1"
+                "php": "^8.2"
             },
             "require-dev": {
                 "orchestra/testbench": "*",
@@ -1264,12 +1264,12 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/irman/notify",
-                "reference": "62188293c1a1501c702e7af6bfa252acbc20175e"
+                "reference": "5366c4f8e730d25e3902ea4b23ce828d57a1d691"
             },
             "require": {
                 "ext-curl": "*",
                 "laravel/framework": "^10.10",
-                "php": "^8.1"
+                "php": "^8.2"
             },
             "require-dev": {
                 "orchestra/testbench": "*",
@@ -11219,7 +11219,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-curl": "*",
         "ext-simplexml": "*"
     },
